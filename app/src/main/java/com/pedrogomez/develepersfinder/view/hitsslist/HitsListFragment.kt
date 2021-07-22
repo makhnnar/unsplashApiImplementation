@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.pedrogomez.develepersfinder.R
 import com.pedrogomez.develepersfinder.databinding.FragmentHitsListBinding
-import com.pedrogomez.develepersfinder.models.db.HitTable
+import com.pedrogomez.develepersfinder.models.db.UserPicture
 import com.pedrogomez.develepersfinder.view.viewmodel.SharedHitsViewModel
 import com.pedrogomez.develepersfinder.utils.extensions.shortToast
 import com.pedrogomez.develepersfinder.models.result.Result
@@ -89,12 +89,12 @@ class HitsListFragment : Fragment(),
         sharedHitsViewModel.reloadContent()
     }
 
-    override fun goToItemDetail(data: HitTable) {
+    override fun goToItemDetail(data: UserPicture) {
         sharedHitsViewModel.saveSelected(data)
         findNavController().navigate(R.id.action_productosListFragment_to_productosDetailFragment)
     }
 
-    override fun deleted(hitItem: HitTable) {
+    override fun deleted(hitItem: UserPicture) {
         sharedHitsViewModel.delete(hitItem)
     }
 }

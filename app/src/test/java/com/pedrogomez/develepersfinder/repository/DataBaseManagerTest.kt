@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.pedrogomez.develepersfinder.models.api.toPresentationModel
-import com.pedrogomez.develepersfinder.models.db.HitTable
+import com.pedrogomez.develepersfinder.models.db.UserPicture
 import com.pedrogomez.develepersfinder.util.DataHelper
 import com.pedrogomez.develepersfinder.util.getOrAwaitValue
 import kotlinx.coroutines.*
@@ -18,11 +18,11 @@ import org.junit.Assert.*
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class HitsProviderTest {
+class DataBaseManagerTest {
 
     private val mainThreadSurrogate = newSingleThreadContext("UI thread")
 
-    private lateinit var SUT: HitsProvider
+    private lateinit var SUT: DataBaseManager
 
     val PAGE = 1
 
@@ -32,7 +32,7 @@ class HitsProviderTest {
     @Before
     fun setUp() {
         Dispatchers.setMain(mainThreadSurrogate)
-        SUT = HitsProvider(
+        SUT = DataBaseManager(
             remoteDataSourceTD,
             localDataSourceTD
         )
@@ -49,7 +49,7 @@ class HitsProviderTest {
         runBlocking {
             launch(Dispatchers.Main) {
                 SUT.loadHits(PAGE)
-                remoteDataSourceTD.getHitsData(PAGE)
+                remoteDataSourceTD.loadPhotos(PAGE)
                 assertEquals(remoteDataSourceTD.page,PAGE)
             }
         }
@@ -60,7 +60,7 @@ class HitsProviderTest {
         runBlocking {
             launch(Dispatchers.Main) {
                 SUT.loadHits(PAGE)
-                val response = remoteDataSourceTD.getHitsData(PAGE)
+                val response = remoteDataSourceTD.loadPhotos(PAGE)
                 assertEquals(response, DataHelper.HITSRESPONSE)
             }
         }
@@ -72,7 +72,7 @@ class HitsProviderTest {
         runBlocking {
             launch(Dispatchers.Main) {
                 SUT.loadHits(PAGE)
-                val response = remoteDataSourceTD.getHitsData(PAGE)
+                val response = remoteDataSourceTD.loadPhotos(PAGE)
                 assertNull(response)
             }
         }
@@ -108,7 +108,7 @@ class HitsProviderTest {
     fun observeHits_observeHits_returnedSuccess() {
         runBlocking {
             onDataChange()
-            val list = SUT.observeHits()
+            val list = SUT.observeFavorites()
             assertEquals(
                 list.getOrAwaitValue(),
                 DataHelper.HITSLIST
@@ -145,46 +145,46 @@ class HitsProviderTest {
         )
     }
 
-    class RemoteDataSourceTD : HitsProvider.RemoteDataSource {
+    class RemoteDataSourceTD : DataBaseManager.RemoteDataSource {
 
         var page = 0
 
         var failed = false
 
-        override suspend fun getHitsData(page: Int): HitsListResponse? {
+        override suspend fun loadPhotos(page: Int): HitsListResponse? {
             this.page = page
             return if(failed) null else DataHelper.HITSRESPONSE
         }
 
     }
 
-    class LocalDataSourceTD : HitsProvider.LocalDataSource{
+    class LocalDataSourceTD : DataBaseManager.LocalDataSource{
 
-        var hitToDelete : HitTable? = null
+        var hitToDelete : UserPicture? = null
 
-        var hitsMutLivDat = MutableLiveData<List<HitTable>>()
+        var hitsMutLivDat = MutableLiveData<List<UserPicture>>()
 
-        var inserted : HitTable? = null
+        var inserted : UserPicture? = null
 
-        var listHits = ArrayList<HitTable>()
+        var listHits = ArrayList<UserPicture>()
 
-        override suspend fun getAllHits(): List<HitTable> {
+        override suspend fun getAllHits(): List<UserPicture> {
             return DataHelper.HITSLIST
         }
 
-        override suspend fun insert(hitTable: HitTable) {
-            inserted = hitTable
+        override suspend fun insert(userPicture: UserPicture) {
+            inserted = userPicture
         }
 
-        override suspend fun delete(hitTable: HitTable) {
-            hitToDelete = hitTable
+        override suspend fun delete(userPicture: UserPicture) {
+            hitToDelete = userPicture
         }
 
-        override fun observeHits(): LiveData<List<HitTable>> {
+        override fun observeHits(): LiveData<List<UserPicture>> {
             return hitsMutLivDat
         }
 
-        override suspend fun updateLocal(toInsert: List<HitTable>) {
+        override suspend fun updateLocal(toInsert: List<UserPicture>) {
             listHits.addAll(toInsert)
         }
 

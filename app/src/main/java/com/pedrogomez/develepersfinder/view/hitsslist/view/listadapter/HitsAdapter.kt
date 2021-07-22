@@ -3,13 +3,13 @@ package com.pedrogomez.develepersfinder.view.hitsslist.view.listadapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import com.pedrogomez.develepersfinder.models.db.HitTable
+import com.pedrogomez.develepersfinder.models.db.UserPicture
 import com.pedrogomez.develepersfinder.view.hitsslist.view.swipecontroler.SwipeController
 
 class HitsAdapter(
     private val onClickItemListener: HitViewHolder.OnClickItemListener,
     private val buttonsActions: SwipeController.SwipeControllerActions
-) : ListAdapter<HitTable,HitViewHolder>(TaskDiffCallback()) {
+) : ListAdapter<UserPicture,HitViewHolder>(TaskDiffCallback()) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.pedrogomez.develepersfinder.R
 import com.pedrogomez.develepersfinder.databinding.ViewHolderHitBinding
-import com.pedrogomez.develepersfinder.models.db.HitTable
+import com.pedrogomez.develepersfinder.models.db.UserPicture
 import com.pedrogomez.develepersfinder.view.hitsslist.view.swipecontroler.SwipeController
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -26,7 +26,7 @@ class HitViewHolder(
 
     private var binding: ViewHolderHitBinding? = null
 
-    var data: HitTable? = null
+    var data: UserPicture? = null
 
     private var buttonsActions: SwipeController.SwipeControllerActions? = null
 
@@ -36,7 +36,7 @@ class HitViewHolder(
     }
 
     fun setData(
-        data: HitTable,
+        data: UserPicture,
         onClickItemListener: OnClickItemListener,
         buttonsActions: SwipeController.SwipeControllerActions
     ) {
@@ -96,14 +96,14 @@ class HitViewHolder(
     }
 
     interface OnClickItemListener{
-        fun goToItemDetail(data: HitTable)
+        fun goToItemDetail(data: UserPicture)
     }
 
     interface SwipeActions {
 
         //fun onLeftClicked(position: Int)
 
-        fun deleted(data: HitTable)
+        fun deleted(data: UserPicture)
 
     }
 

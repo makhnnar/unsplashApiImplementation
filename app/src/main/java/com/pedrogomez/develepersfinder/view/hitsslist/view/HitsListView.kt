@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.pedrogomez.develepersfinder.R
 import com.pedrogomez.develepersfinder.databinding.ViewHitListBinding
-import com.pedrogomez.develepersfinder.models.db.HitTable
+import com.pedrogomez.develepersfinder.models.db.UserPicture
 import com.pedrogomez.develepersfinder.utils.PageScrollListener
 import com.pedrogomez.develepersfinder.utils.extensions.print
 import com.pedrogomez.develepersfinder.view.hitsslist.view.listadapter.HitViewHolder
@@ -126,7 +126,7 @@ class HitsListView : ConstraintLayout,
         pageScrollListener.enablePaging(true)
     }
 
-    fun setData(hitItems: List<HitTable>){
+    fun setData(hitItems: List<UserPicture>){
         "size in adapter ${hitItems.size}".print()
         hitsAdapter.submitList(hitItems)
     }
@@ -134,11 +134,11 @@ class HitsListView : ConstraintLayout,
     interface OnHitsListActions{
         fun loadMore(page: Int)
         fun loadAgain()
-        fun goToItemDetail(data: HitTable)
-        fun deleted(hitItem:HitTable)
+        fun goToItemDetail(data: UserPicture)
+        fun deleted(hitItem:UserPicture)
     }
 
-    override fun goToItemDetail(data: HitTable) {
+    override fun goToItemDetail(data: UserPicture) {
         onHitsListActions?.goToItemDetail(data)
     }
 
@@ -154,7 +154,7 @@ class HitsListView : ConstraintLayout,
         showBtnToTop()
     }
 
-    override fun deleted(hitItem:HitTable) {
+    override fun deleted(hitItem:UserPicture) {
         onHitsListActions?.deleted(hitItem)
     }
 

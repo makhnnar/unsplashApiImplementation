@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HNMobile</string>
+    <string name="app_name">My Pic\'s Wall</string>
     <string name="search_hint"> Enter the id or name of the pokemon </string>
     <string name="search_no_results"> Pokemon not found </string>
     <string name="search_error"> There was an error. Check your internet connection </string>

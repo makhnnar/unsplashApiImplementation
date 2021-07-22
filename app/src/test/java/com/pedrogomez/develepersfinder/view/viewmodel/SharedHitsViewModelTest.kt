@@ -2,7 +2,7 @@ package com.pedrogomez.develepersfinder.view.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.pedrogomez.develepersfinder.models.db.HitTable
+import com.pedrogomez.develepersfinder.models.db.UserPicture
 import com.pedrogomez.develepersfinder.models.result.Result
 import com.pedrogomez.develepersfinder.util.DataHelper
 import com.pedrogomez.develepersfinder.util.getOrAwaitValue
@@ -18,7 +18,7 @@ class SharedHitsViewModelTest {
 
     private lateinit var SUT: SharedHitsViewModel
 
-    var reposotoryTD = RepositoryTD()
+    var reposotoryTD = DataBaseTD()
 
     val PAGE = 1
 
@@ -84,9 +84,9 @@ class SharedHitsViewModelTest {
         }
     }
 
-    class RepositoryTD : SharedHitsViewModel.Repository{
+    class DataBaseTD : SharedHitsViewModel.Repository{
 
-        var toDelete : HitTable? = null
+        var toDelete : UserPicture? = null
 
         var page = 0
 
@@ -94,16 +94,16 @@ class SharedHitsViewModelTest {
             this.page = page
         }
 
-        override suspend fun delete(hitItem: HitTable) {
+        override suspend fun delete(hitItem: UserPicture) {
             toDelete = hitItem
         }
 
-        override suspend fun getAllHits(): List<HitTable> {
+        override suspend fun getAllHits(): List<UserPicture> {
             //never used
             return emptyList()
         }
 
-        override fun observeHits(): LiveData<List<HitTable>> {
+        override fun observeFavorites(): LiveData<List<UserPicture>> {
             //used on viewmodel class creation. it's binding to DB
             return DataHelper.LIVEHISTDATA
         }

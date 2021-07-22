@@ -8,7 +8,7 @@ import android.view.MotionEvent
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.*
 import androidx.recyclerview.widget.RecyclerView
-import com.pedrogomez.develepersfinder.models.db.HitTable
+import com.pedrogomez.develepersfinder.models.db.UserPicture
 import com.pedrogomez.develepersfinder.view.hitsslist.view.listadapter.HitViewHolder
 
 class SwipeController(
@@ -245,7 +245,7 @@ class SwipeController(
 
         //fun onLeftClicked(position: Int)
 
-        fun deleted(data: HitTable)
+        fun deleted(data: UserPicture)
 
     }
 

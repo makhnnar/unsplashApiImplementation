@@ -10,7 +10,7 @@ import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.pedrogomez.develepersfinder.R
 import com.pedrogomez.develepersfinder.databinding.ViewHitDetailBinding
-import com.pedrogomez.develepersfinder.models.db.HitTable
+import com.pedrogomez.develepersfinder.models.db.UserPicture
 import com.pedrogomez.develepersfinder.utils.extensions.print
 
 class HitDetailView : ConstraintLayout {
@@ -47,12 +47,12 @@ class HitDetailView : ConstraintLayout {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun setData(hitTable: HitTable){
+    fun setData(userPicture: UserPicture){
         try{
-            if (hitTable.url!=null){
-                binding.webView.loadUrl(hitTable.url)
-            }else if(hitTable.story_url!=null){
-                binding.webView.loadUrl(hitTable.story_url)
+            if (userPicture.url!=null){
+                binding.webView.loadUrl(userPicture.url)
+            }else if(userPicture.story_url!=null){
+                binding.webView.loadUrl(userPicture.story_url)
             }
         }catch (e: Exception){
             "hitData: error".print()

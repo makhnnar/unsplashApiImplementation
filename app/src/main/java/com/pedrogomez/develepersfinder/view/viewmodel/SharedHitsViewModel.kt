@@ -1,26 +1,27 @@
 package com.pedrogomez.develepersfinder.view.viewmodel
 
 import androidx.lifecycle.*
-import com.pedrogomez.develepersfinder.models.db.HitTable
+import com.pedrogomez.develepersfinder.contracts.ManagerContracts
+import com.pedrogomez.develepersfinder.models.db.UserPicture
 import com.pedrogomez.develepersfinder.models.result.Result
 import kotlinx.coroutines.*
 
 class SharedHitsViewModel(
-    private val repository: Repository
+    private val dataBase: ManagerContracts.DataBase
 ) : ViewModel(){
 
-    private val _hitsListLiveData : LiveData<List<HitTable>> = repository.observeHits()
+    private val _hitsListLiveData : LiveData<List<UserPicture>> = dataBase.observeFavorites()
 
     val hitsListLiveData = _hitsListLiveData
 
-    val selectedHitLiveData = MutableLiveData<HitTable>()
+    val selectedHitLiveData = MutableLiveData<UserPicture>()
 
     val loaderData = MutableLiveData<Result<Boolean>>()
 
     fun reloadContent(){
         setLoadingState()
         viewModelScope.launch {
-            repository.loadHits(0)
+            dataBase.loadHits(0)
             setSuccessState()
         }
     }
@@ -44,32 +45,23 @@ class SharedHitsViewModel(
     fun loadMore(page:Int){
         setLoadingState()
         viewModelScope.launch {
-            repository.loadHits(page)
+            dataBase.loadHits(page)
             setSuccessState()
         }
     }
 
-    fun saveSelected(productItem: HitTable){
+    fun saveSelected(productItem: UserPicture){
         selectedHitLiveData.value = productItem
     }
 
-    fun delete(hitItem: HitTable) {
+    fun delete(hitItem: UserPicture) {
         viewModelScope.launch {
-            repository.delete(hitItem)
+            dataBase.delete(hitItem)
         }
     }
 
     override fun onCleared() {
         super.onCleared()
-    }
-
-    interface Repository{
-
-        suspend fun loadHits(page:Int)
-        suspend fun delete(hitItem: HitTable)
-        suspend fun getAllHits(): List<HitTable>
-        fun observeHits(): LiveData<List<HitTable>>
-
     }
 
 }

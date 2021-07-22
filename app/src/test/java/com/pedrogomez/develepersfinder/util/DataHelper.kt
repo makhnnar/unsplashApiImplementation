@@ -2,12 +2,12 @@ package com.pedrogomez.develepersfinder.util
 
 import androidx.lifecycle.liveData
 import com.pedrogomez.develepersfinder.models.api.HitResponse
-import com.pedrogomez.develepersfinder.models.db.HitTable
+import com.pedrogomez.develepersfinder.models.db.UserPicture
 
 class DataHelper {
 
     companion object{
-        val HITTABLE = HitTable(
+        val HITTABLE = UserPicture(
             "objectId",
             "author",
             1000,
@@ -41,8 +41,8 @@ class DataHelper {
         val HITSLIST = listOf(
             HITTABLE
         )
-        val LIVEHISTDATA = liveData<List<HitTable>> { HITSLIST }
-        val EMPTYHISTS : List<HitTable> = emptyList()
+        val LIVEHISTDATA = liveData<List<UserPicture>> { HITSLIST }
+        val EMPTYHISTS : List<UserPicture> = emptyList()
     }
 
 }

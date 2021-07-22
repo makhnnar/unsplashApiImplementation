@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.pedrogomez.develepersfinder.repository.local.HitsDao
-import com.pedrogomez.develepersfinder.repository.local.HitsDataBase
+import com.pedrogomez.develepersfinder.repository.local.DBDao
+import com.pedrogomez.develepersfinder.repository.local.DataBase
 import com.pedrogomez.develepersfinder.util.DataHelper
 import io.ktor.utils.io.errors.*
 import kotlinx.coroutines.Dispatchers
@@ -23,8 +23,8 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class TestingDB {
 
-    private lateinit var hitsDao: HitsDao
-    private lateinit var db: HitsDataBase
+    private lateinit var DBDao: DBDao
+    private lateinit var db: DataBase
 
     private val mainThreadSurrogate = newSingleThreadContext("UI thread")
 
@@ -34,9 +34,9 @@ class TestingDB {
         val context = ApplicationProvider.getApplicationContext<Context>()
         db = Room.inMemoryDatabaseBuilder(
             context,
-            HitsDataBase::class.java
+            DataBase::class.java
         ).build()
-        hitsDao = db.hits()
+        DBDao = db.hits()
     }
 
     @After
@@ -53,8 +53,8 @@ class TestingDB {
         runBlocking {
             launch(Dispatchers.Main) {
                 val hitTable = DataHelper.HITTABLE
-                hitsDao.insert(hitTable)
-                val hits = hitsDao.getAllHits()
+                DBDao.insert(hitTable)
+                val hits = DBDao.getAllHits()
                 Assert.assertEquals(hits,DataHelper.HITSLIST)
             }
         }
@@ -66,9 +66,9 @@ class TestingDB {
         runBlocking {
             launch(Dispatchers.Main) {
                 val hitTable = DataHelper.HITTABLE
-                hitsDao.insert(hitTable)
+                DBDao.insert(hitTable)
                 hitTable.isDeleted = true
-                val result = hitsDao.delete(hitTable)
+                val result = DBDao.delete(hitTable)
                 Assert.assertEquals(result,1)
             }
         }
@@ -80,10 +80,10 @@ class TestingDB {
         runBlocking {
             launch(Dispatchers.Main) {
                 val hitTable = DataHelper.HITTABLE
-                hitsDao.insert(hitTable)
+                DBDao.insert(hitTable)
                 hitTable.isDeleted = true
-                hitsDao.delete(hitTable)
-                val hits = hitsDao.getAllHits()
+                DBDao.delete(hitTable)
+                val hits = DBDao.getAllHits()
                 Assert.assertEquals(hits,DataHelper.EMPTYHISTS)
             }
         }
