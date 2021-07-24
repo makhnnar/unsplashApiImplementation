@@ -21,7 +21,6 @@ class SharedHitsViewModel(
     fun reloadContent(){
         setLoadingState()
         viewModelScope.launch {
-            dataBase.loadHits(0)
             setSuccessState()
         }
     }
@@ -45,7 +44,6 @@ class SharedHitsViewModel(
     fun loadMore(page:Int){
         setLoadingState()
         viewModelScope.launch {
-            dataBase.loadHits(page)
             setSuccessState()
         }
     }

@@ -1,6 +1,8 @@
 package com.pedrogomez.develepersfinder.di
 
 import androidx.room.Room
+import com.pedrogomez.develepersfinder.contracts.ManagerContracts
+import com.pedrogomez.develepersfinder.contracts.RepoContracts
 import com.pedrogomez.develepersfinder.repository.DataBaseManager
 import com.pedrogomez.develepersfinder.repository.local.DataBase
 import com.pedrogomez.develepersfinder.repository.local.DBLocalRepo
@@ -19,7 +21,7 @@ val dbModule = module {
 }
 
 val dbProvider = module{
-    single<DataBaseManager.LocalDataSource>{
+    single<RepoContracts.LocalDataSource>{
         DBLocalRepo(
                 get<DataBase>().hits()
         )

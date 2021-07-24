@@ -40,23 +40,7 @@ class HitViewHolder(
         onClickItemListener: OnClickItemListener,
         buttonsActions: SwipeController.SwipeControllerActions
     ) {
-        Log.i("delete", "${data.isDeleted} :O")
-        if(data.title!=null){
-            binding?.tvTitle?.text = data.title
-        }else{
-            binding?.tvTitle?.text = data.story_title
-        }
-        binding?.tvAuthor?.text = data.author
-        binding?.tvCreated?.text = generatePostTime(
-            data.created_at_i
-        )
-        binding?.itemRowContainer?.setOnClickListener {
-            onClickItemListener.goToItemDetail(
-                data
-            )
-        }
-        this.data = data
-        this.buttonsActions = buttonsActions
+
     }
 
     fun generatePostTime(creationTime: Long):String{
@@ -89,10 +73,7 @@ class HitViewHolder(
     }
 
     fun excecutesDeleteOption(){
-        data?.let {
-            Log.i("Deleting", "${it.story_title} :O")
-            buttonsActions?.deleted(it)
-        }
+
     }
 
     interface OnClickItemListener{

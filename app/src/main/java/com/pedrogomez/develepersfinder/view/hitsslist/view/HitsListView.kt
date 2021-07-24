@@ -115,14 +115,12 @@ class HitsListView : ConstraintLayout,
     fun showLoader(){
         binding.srlContainer.isRefreshing = false
         binding.srlContainer.isEnabled = false
-        binding.pbLoading.show()
         pageScrollListener.enablePaging(false)
     }
 
     fun hideLoader(){
         binding.srlContainer.isRefreshing = false
         binding.srlContainer.isEnabled = true
-        binding.pbLoading.remove()
         pageScrollListener.enablePaging(true)
     }
 

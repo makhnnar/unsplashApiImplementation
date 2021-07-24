@@ -5,7 +5,7 @@ import com.pedrogomez.develepersfinder.models.db.UserPicture
 
 class TaskDiffCallback : DiffUtil.ItemCallback<UserPicture>() {
     override fun areItemsTheSame(oldItem: UserPicture, newItem: UserPicture): Boolean {
-        return oldItem.objectID == newItem.objectID
+        return oldItem == newItem
     }
 
     override fun areContentsTheSame(oldItem: UserPicture, newItem: UserPicture): Boolean {

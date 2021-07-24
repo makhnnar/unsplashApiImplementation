@@ -27,7 +27,7 @@ class DBLocalRepo(
     }
 
     override fun observeHits(): LiveData<List<UserPicture>> {
-        return DBDao.observeHits()
+        return DBDao.getAllHits()
     }
 
 }

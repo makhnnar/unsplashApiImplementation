@@ -1,6 +1,7 @@
 package com.pedrogomez.develepersfinder.di
 
 import com.pedrogomez.develepersfinder.R
+import com.pedrogomez.develepersfinder.contracts.RepoContracts
 import com.pedrogomez.develepersfinder.repository.DataBaseManager
 import com.pedrogomez.develepersfinder.repository.remote.ApiRepository
 import io.ktor.client.*
@@ -12,7 +13,7 @@ import org.koin.dsl.module
 
 val networkModule = module {
     single { okHttpKtor }
-    single<DataBaseManager.RemoteDataSource> {
+    single<RepoContracts.RemoteDataSource> {
         ApiRepository(
             get(),
             androidApplication().getString(R.string.url_api)

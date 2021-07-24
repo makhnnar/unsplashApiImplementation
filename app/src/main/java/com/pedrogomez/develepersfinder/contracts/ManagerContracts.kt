@@ -15,7 +15,7 @@ class ManagerContracts {
 
     interface ApiService{
 
-        fun observeRemote(): LiveData<List<UserPicture>>
+        suspend fun observeRemote(page:Int): LiveData<List<UserPicture>>
 
     }
 

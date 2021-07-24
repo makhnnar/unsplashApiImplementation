@@ -48,26 +48,7 @@ class HitDetailView : ConstraintLayout {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun setData(userPicture: UserPicture){
-        try{
-            if (userPicture.url!=null){
-                binding.webView.loadUrl(userPicture.url)
-            }else if(userPicture.story_url!=null){
-                binding.webView.loadUrl(userPicture.story_url)
-            }
-        }catch (e: Exception){
-            "hitData: error".print()
-        }
-        binding.webView.settings.javaScriptEnabled = true
-        binding.webView.settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
-        binding.webView.webViewClient =  object : WebViewClient(){
 
-        }
-        binding.btnBack.setOnClickListener {
-            onDetailActions?.onBackPressed()
-        }
-        binding.tvBack.setOnClickListener {
-            onDetailActions?.onBackPressed()
-        }
     }
 
     interface OnDetailActions{

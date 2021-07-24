@@ -22,8 +22,8 @@ data class UserPicture(
         val description: String,
         @ColumnInfo(name = "likes")
         val likes: Int,
-        @ColumnInfo(name = "full")
-        val full: String,
+        @ColumnInfo(name = "full_image")
+        val fullImage: String,
         @ColumnInfo(name = "first_name")
         val firstName: String,
         @ColumnInfo(name = "id_user")
